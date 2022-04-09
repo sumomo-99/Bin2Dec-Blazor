@@ -1,0 +1,63 @@
+﻿@page "/"
+
+<PageTitle>Bin2Dec</PageTitle>
+
+<div class="text-center bg-light p-2">
+    <h1>Bin2Dec-Blazor</h1>
+    <div>
+        <div>&copy;2022 sumomo-99</div>
+        <a class="bi bi-twitter text-dark fs-2" href="https://twitter.com/sumomo_99"></a>
+        <a class="bi bi-github text-dark fs-2" href="https://github.com/sumomo-99"></a>
+    </div>
+</div>
+    <p class="lead">2進数を10進数に変換します。</p>
+
+    <div class="row mb-5">
+        <label class="form-label fw-bold">Binary Number</label>
+        <input
+            type="text"
+            class="form-control"
+            @bind="BinaryValue"
+            @bind:event="oninput"
+        >
+    </div>
+
+    <div class="row">
+        <label class="form-label fw-bold">Decimal Number</label>
+        <div class="fs-2">
+            @DecimalValue
+        </div>
+    </div>
+
+@code
+{
+    private string? binaryValue;
+    private string? BinaryValue
+    {
+        get
+        {
+            return binaryValue;
+        }
+
+        set
+        {
+            foreach (var c in value)
+            {
+                if (c != '0' && c != '1')
+                {
+                    return;
+                }
+            }
+
+            binaryValue = value;
+        }
+    }
+
+    private int DecimalValue
+    {
+        get
+        {
+            return (binaryValue == "") ? 0 : Convert.ToInt32(binaryValue, 2);
+        }
+    }
+}
